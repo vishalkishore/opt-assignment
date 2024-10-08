@@ -1,0 +1,55 @@
+{
+    "sectors": ["Core Eng", "Consulting", "Trading", "Software", "Networking", "Automobile", "Finance", "Educational", "DataScience", "Cyber Security"],
+    "categories": ["Private", "MNC", "Govt", "NGO", "PSU", "Startup", "Other"],
+    "total_companies": 300,
+    "total_job_offers": 733,
+    "average_offers_per_company": 2.5,
+    "total_sectors_covered": 9,
+    "total_designations_covered": 10,
+    "total_categories_covered": 7,
+    "average_salary_by_program": {
+        "btech": {
+            "Base": 800000,
+            "MonthlyFixedSalary": 60000,
+            "Variables": 100000,
+            "GrossSalary": 900000,
+            "CostToCompany": 1100000
+        },
+        "mtech": {
+            "Base": 1000000,
+            "MonthlyFixedSalary": 80000,
+            "Variables": 200000,
+            "GrossSalary": 1200000,
+            "CostToCompany": 1400000
+        },
+        "msc": {
+            "Base": 700000,
+            "MonthlyFixedSalary": 50000,
+            "Variables": 120000,
+            "GrossSalary": 850000,
+            "CostToCompany": 1000000
+        },
+        "phd": {
+            "Base": 1500000,
+            "MonthlyFixedSalary": 100000,
+            "Variables": 300000,
+            "GrossSalary": 1800000,
+            "CostToCompany": 2000000
+        },
+        "mba": {
+            "Base": 1800000,
+            "MonthlyFixedSalary": 120000,
+            "Variables": 400000,
+            "GrossSalary": 2200000,
+            "CostToCompany": 2500000
+        }
+    },
+    "average_time_to_issue_offer_letter": "7-14 days",
+    "cgpa_criteria": {
+        "btech": "7.0+",
+        "mtech": "7.5+",
+        "msc": "7.0+",
+        "phd": "8.0+"
+    },
+    "allow_students_with_backlogs": false
+}
