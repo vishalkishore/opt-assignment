@@ -1,5 +1,5 @@
-import React, { useMemo } from "react";
-import { Bar } from "react-chartjs-2";
+import React, { useMemo } from 'react';
+import { Bar } from 'react-chartjs-2';
 import {
   Chart as ChartJS,
   CategoryScale,
@@ -8,12 +8,19 @@ import {
   Title,
   Tooltip,
   Legend,
-} from "chart.js";
-import "tailwindcss/tailwind.css";
+} from 'chart.js';
+import 'tailwindcss/tailwind.css';
 
-import rawData from "../../../public/cdc.json";
+import rawData from '../../../public/cdc.json';
 
-ChartJS.register(CategoryScale, LinearScale, BarElement, Title, Tooltip, Legend);
+ChartJS.register(
+  CategoryScale,
+  LinearScale,
+  BarElement,
+  Title,
+  Tooltip,
+  Legend,
+);
 
 type Company = {
   Organisation: {
@@ -32,7 +39,7 @@ const getCategoryJobOffers = (data: Company[]) => {
     const category = company.Organisation.category;
     const totalOffers = company.JobOffer.reduce(
       (sum, offer) => sum + offer.tentative_no_of_hires,
-      0
+      0,
     );
 
     if (categoryOffers[category]) {
@@ -52,9 +59,9 @@ const JobOffersChart: React.FC = () => {
     labels: Object.keys(categoryJobOffers),
     datasets: [
       {
-        label: "Number of Job Offers",
+        label: 'Number of Job Offers',
         data: Object.values(categoryJobOffers),
-        backgroundColor: "#3C50E0",
+        backgroundColor: '#3C50E0',
       },
     ],
   };
@@ -64,18 +71,20 @@ const JobOffersChart: React.FC = () => {
     maintainAspectRatio: false,
     plugins: {
       legend: {
-        position: "top" as const,
+        position: 'top' as const,
       },
       title: {
         display: true,
-        text: "Category vs Number of Job Offers",
+        text: 'Category vs Number of Job Offers',
       },
     },
   };
 
   return (
     <div className="col-span-12 rounded-sm border border-stroke bg-white p-7.5 shadow-default dark:border-strokedark dark:bg-boxdark xl:col-span-4">
-      <div className="relative w-full h-96"> {/* Ensure height is set */}
+      <div className="relative w-full h-96">
+        {' '}
+        {/* Ensure height is set */}
         <Bar data={data} options={options} />
       </div>
     </div>

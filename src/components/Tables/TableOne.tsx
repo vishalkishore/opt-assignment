@@ -37,9 +37,12 @@ type Company = {
 };
 
 // Helper function to get highest CTC, base salary, and gross salary
-const getHighestSalaries = (program: keyof ProgramWiseSalaryBreakup, data: Company[]) => {
+const getHighestSalaries = (
+  program: keyof ProgramWiseSalaryBreakup,
+  data: Company[],
+) => {
   return data
-    .map(company => ({
+    .map((company) => ({
       name: company.Organisation.Name,
       baseSalary: company.ProgramWiseSalaryBreakup[program]?.Base || 0,
       grossSalary: company.ProgramWiseSalaryBreakup[program]?.GrossSalary || 0,
@@ -47,44 +50,51 @@ const getHighestSalaries = (program: keyof ProgramWiseSalaryBreakup, data: Compa
       website: company.Organisation.website,
       program,
     }))
-    .filter(company => company.CTC > 0)
+    .filter((company) => company.CTC > 0)
     .sort((a, b) => b.CTC - a.CTC);
 };
 
 const TableOne: React.FC = () => {
-  const [program, setProgram] = useState<keyof ProgramWiseSalaryBreakup>('btech');
-  const highestSalaries = useMemo(() => getHighestSalaries(program, rawData), [program]);
+  const [program, setProgram] =
+    useState<keyof ProgramWiseSalaryBreakup>('btech');
+  const highestSalaries = useMemo(
+    () => getHighestSalaries(program, rawData),
+    [program],
+  );
 
   // Define table columns, including Base Salary and Gross Salary
-  const columns = useMemo<ColumnDef<typeof highestSalaries[0]>[]>(() => [
-    {
-      header: 'Company',
-      accessorKey: 'name', // accessor is the "key" in the data
-      cell: info => {
-        const { name, website } = info.row.original;
-        return (
-          <a href={website} target="_blank" rel="noopener noreferrer">
-            {name}
-          </a>
-        );
+  const columns = useMemo<ColumnDef<(typeof highestSalaries)[0]>[]>(
+    () => [
+      {
+        header: 'Company',
+        accessorKey: 'name', // accessor is the "key" in the data
+        cell: (info) => {
+          const { name, website } = info.row.original;
+          return (
+            <a href={website} target="_blank" rel="noopener noreferrer">
+              {name}
+            </a>
+          );
+        },
       },
-    },
-    {
-      header: 'CTC',
-      accessorKey: 'CTC',
-      cell: info => info.getValue(),
-    },
-    {
-      header: 'Base Salary',
-      accessorKey: 'baseSalary',
-      cell: info => info.getValue(),
-    },
-    {
-      header: 'Gross Salary',
-      accessorKey: 'grossSalary',
-      cell: info => info.getValue(),
-    },
-  ], []);
+      {
+        header: 'CTC',
+        accessorKey: 'CTC',
+        cell: (info) => info.getValue(),
+      },
+      {
+        header: 'Base Salary',
+        accessorKey: 'baseSalary',
+        cell: (info) => info.getValue(),
+      },
+      {
+        header: 'Gross Salary',
+        accessorKey: 'grossSalary',
+        cell: (info) => info.getValue(),
+      },
+    ],
+    [],
+  );
 
   const [pagination, setPagination] = useState<PaginationState>({
     pageIndex: 0,
@@ -97,14 +107,14 @@ const TableOne: React.FC = () => {
     data: highestSalaries,
     columns,
     state: {
-      pagination : pagination,
-      sorting : sorting,
+      pagination: pagination,
+      sorting: sorting,
     },
     onPaginationChange: setPagination,
     getCoreRowModel: getCoreRowModel(),
     getSortedRowModel: getSortedRowModel(),
     getPaginationRowModel: getPaginationRowModel(),
-    onSortingChange : setSorting,
+    onSortingChange: setSorting,
   });
 
   return (
@@ -116,7 +126,9 @@ const TableOne: React.FC = () => {
       {/* Dropdown to select program */}
       <label>Select Program: </label>
       <select
-        onChange={(e) => setProgram(e.target.value as keyof ProgramWiseSalaryBreakup)}
+        onChange={(e) =>
+          setProgram(e.target.value as keyof ProgramWiseSalaryBreakup)
+        }
         value={program}
       >
         <option value="btech">BTech</option>
@@ -129,15 +141,18 @@ const TableOne: React.FC = () => {
       {/* Table */}
       <table className="min-w-full leading-normal">
         <thead>
-          {table.getHeaderGroups().map(headerGroup => (
+          {table.getHeaderGroups().map((headerGroup) => (
             <tr key={headerGroup.id}>
-              {headerGroup.headers.map(column => (
+              {headerGroup.headers.map((column) => (
                 <th
                   key={column.id}
                   className="px-5 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider"
                   onClick={column.column.getToggleSortingHandler()}
                 >
-                  {flexRender(column.column.columnDef.header, column.getContext())}
+                  {flexRender(
+                    column.column.columnDef.header,
+                    column.getContext(),
+                  )}
                   {/* Add sorting indicator */}
                   <span>
                     {column.column.getIsSorted?.()
@@ -152,9 +167,9 @@ const TableOne: React.FC = () => {
           ))}
         </thead>
         <tbody>
-          {table.getRowModel().rows.map(row => (
+          {table.getRowModel().rows.map((row) => (
             <tr key={row.id}>
-              {row.getVisibleCells().map(cell => (
+              {row.getVisibleCells().map((cell) => (
                 <td
                   key={cell.id}
                   className="px-5 py-5 border-b border-gray-200 bg-white text-sm"
@@ -169,29 +184,42 @@ const TableOne: React.FC = () => {
 
       {/* Pagination controls */}
       <div className="pagination">
-        <button onClick={() => table.setPageIndex(0)} disabled={!table.getCanPreviousPage()}>
+        <button
+          onClick={() => table.setPageIndex(0)}
+          disabled={!table.getCanPreviousPage()}
+        >
           {'<<'}
         </button>{' '}
-        <button onClick={() => table.previousPage()} disabled={!table.getCanPreviousPage()}>
+        <button
+          onClick={() => table.previousPage()}
+          disabled={!table.getCanPreviousPage()}
+        >
           {'<'}
         </button>{' '}
-        <button onClick={() => table.nextPage()} disabled={!table.getCanNextPage()}>
+        <button
+          onClick={() => table.nextPage()}
+          disabled={!table.getCanNextPage()}
+        >
           {'>'}
         </button>{' '}
-        <button onClick={() => table.setPageIndex(table.getPageCount() - 1)} disabled={!table.getCanNextPage()}>
+        <button
+          onClick={() => table.setPageIndex(table.getPageCount() - 1)}
+          disabled={!table.getCanNextPage()}
+        >
           {'>>'}
         </button>{' '}
         <span>
           Page{' '}
           <strong>
-            {table.getState().pagination.pageIndex + 1} of {table.getPageCount()}
+            {table.getState().pagination.pageIndex + 1} of{' '}
+            {table.getPageCount()}
           </strong>{' '}
         </span>
         <select
           value={table.getState().pagination.pageSize}
-          onChange={e => table.setPageSize(Number(e.target.value))}
+          onChange={(e) => table.setPageSize(Number(e.target.value))}
         >
-          {[5,10].map(pageSize => (
+          {[5, 10].map((pageSize) => (
             <option key={pageSize} value={pageSize}>
               Show {pageSize}
             </option>

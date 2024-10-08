@@ -1,7 +1,5 @@
-import React, { useState } from "react";
-import rawData from "../../../public/cdc.json";
-
-
+import React, { useState } from 'react';
+import rawData from '../../../public/cdc.json';
 
 type JobOffer = {
   Designation: string;
@@ -42,20 +40,24 @@ type Company = {
 };
 
 // Extract CTC values for a specific program
-const getHighestCTC = (program: keyof ProgramWiseSalaryBreakup, data: Company[]) => {
+const getHighestCTC = (
+  program: keyof ProgramWiseSalaryBreakup,
+  data: Company[],
+) => {
   return data
-    .map(company => ({
+    .map((company) => ({
       name: company.Organisation.Name,
       CTC: company.ProgramWiseSalaryBreakup[program]?.CostToCompany || 0,
       website: company.Organisation.website,
-      program
+      program,
     }))
-    .filter(company => company.CTC > 0)
+    .filter((company) => company.CTC > 0)
     .sort((a, b) => b.CTC - a.CTC);
 };
 
 const HighestPackage: React.FC = () => {
-  const [program, setProgram] = useState<keyof ProgramWiseSalaryBreakup>("btech");
+  const [program, setProgram] =
+    useState<keyof ProgramWiseSalaryBreakup>('btech');
 
   const handleChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
     setProgram(e.target.value as keyof ProgramWiseSalaryBreakup);
@@ -88,7 +90,15 @@ const HighestPackage: React.FC = () => {
             <tr key={index}>
               <td>{company.name}</td>
               <td>{company.CTC}</td>
-              <td><a href={company.website} target="_blank" rel="noopener noreferrer">{company.website}</a></td>
+              <td>
+                <a
+                  href={company.website}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  {company.website}
+                </a>
+              </td>
             </tr>
           ))}
         </tbody>

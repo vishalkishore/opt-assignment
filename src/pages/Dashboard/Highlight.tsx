@@ -14,7 +14,6 @@ import meta_data from '../../../public/meta.json';
 import cdc_data from '../../../public/cdc.json';
 
 const Highlight: React.FC = () => {
-
   const btechCTC = meta_data.average_salary_by_program.btech.CostToCompany;
   const mtechCTC = meta_data.average_salary_by_program.mtech.CostToCompany;
   const mscCTC = meta_data.average_salary_by_program.msc.CostToCompany;
@@ -31,7 +30,11 @@ const Highlight: React.FC = () => {
   return (
     <>
       <div className="grid grid-cols-1 gap-4 md:grid-cols-2 md:gap-6 xl:grid-cols-4 2xl:gap-7.5">
-        <CardDataStats title="Total Companies" total={meta_data.total_companies.toString()} rate="" >
+        <CardDataStats
+          title="Total Companies"
+          total={meta_data.total_companies.toString()}
+          rate=""
+        >
           <svg
             className="fill-primary dark:fill-white"
             width="22"
@@ -50,7 +53,11 @@ const Highlight: React.FC = () => {
             />
           </svg>
         </CardDataStats>
-        <CardDataStats title="Total Offers" total={ meta_data.total_job_offers.toString() } rate="">
+        <CardDataStats
+          title="Total Offers"
+          total={meta_data.total_job_offers.toString()}
+          rate=""
+        >
           <svg
             className="fill-primary dark:fill-white"
             width="20"
